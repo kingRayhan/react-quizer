@@ -34,7 +34,7 @@ export default class AppNavbar extends React.Component {
             <div>
                 <Navbar color="light" light expand="md">
                     <NavbarBrand tag={Link} to="/" className="text-uppercase">
-                        🚀 Quizer
+                        <span role="img">🚀</span> Quizer
                     </NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>

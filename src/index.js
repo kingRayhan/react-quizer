@@ -2,18 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './styles/app.scss'
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 import Layout from './layout'
 import Create from './pages/newquiz'
+import QuizList from './pages/QuizList'
 
 ReactDOM.render(
-    <BrowserRouter>
+    <HashRouter>
         <Switch>
             <Layout>
-                <Route path="/" exact component={() => <h1>Home</h1>} />
+                <Route path="/" exact component={QuizList} />
                 <Route path="/create" exact component={Create} />
             </Layout>
         </Switch>
-    </BrowserRouter>,
+    </HashRouter>,
     document.querySelector('#root')
 )
