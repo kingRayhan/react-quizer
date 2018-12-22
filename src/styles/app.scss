@@ -1,0 +1,22 @@
+$primary: #16a085;
+@import '~bootstrap/scss/bootstrap';
+
+.question {
+    position: relative;
+    .question-delete {
+        position: absolute;
+        top: 5px;
+        right: -36px;
+        z-index: 1;
+        border: none;
+        font-size: 25px;
+        padding: 0;
+        opacity: 0;
+    }
+
+    &:hover {
+        .question-delete {
+            opacity: 1;
+        }
+    }
+}
