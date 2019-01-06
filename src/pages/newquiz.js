@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import NewQuestion from '../components/newQuestion'
 import { Row, Col, FormGroup, Input, Button } from 'reactstrap'
-export default class newquiz extends Component {
+import { connect } from 'react-redux'
+import { v4 } from 'uuid'
+class newquiz extends Component {
     state = {
+        id: null,
         title: '',
         description: '',
         questions: [
@@ -29,7 +32,8 @@ export default class newquiz extends Component {
     }
 
     submitQuiz = () => {
-        console.log(this.state)
+        this.setState({ id: v4() })
+        this.props.saveQuiz(this.state)
     }
 
     /**
@@ -140,3 +144,10 @@ export default class newquiz extends Component {
         )
     }
 }
+
+export default connect(
+    null,
+    dispatch => ({
+        saveQuiz: quiz => dispatch({ type: 'SAVE_QUIZ', payload: quiz }),
+    })
+)(newquiz)
