@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import toastr from 'toastr'
+
 import {
     Container,
     Row,
@@ -11,10 +11,8 @@ import {
     FormFeedback,
     Button,
 } from 'reactstrap'
+import { auth_register } from '../store/auth'
 
-import Axios from 'axios'
-import { loadingStart, loadingStop } from '../store/meta'
-import { catchError, clearError } from '../store/errors'
 class Register extends React.Component {
     state = {
         name: '',
@@ -22,10 +20,7 @@ class Register extends React.Component {
         password: '',
         confirmPassword: '',
         errors: {},
-        success: false,
     }
-
-    componentDidMount() {}
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if (
@@ -40,34 +35,20 @@ class Register extends React.Component {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    clearState = () => {
+        this.setState({
+            name: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+        })
+    }
+
     onSubmit = e => {
         e.preventDefault()
         const user = { ...this.state }
-
         delete user.errors
-        this.props.loadingStart()
-        this.props.clearError()
-        Axios.post(
-            'https://quiz-app-api-demo.herokuapp.com/api/user/register',
-            user
-        )
-            .then(res => {
-                toastr.success(res.data.message)
-                this.setState({
-                    name: '',
-                    email: '',
-                    password: '',
-                    confirmPassword: '',
-                })
-                this.props.clearError()
-                this.props.loadingStop()
-            })
-            .catch(({ response: { data: errors } }) => {
-                this.setState({ success: true })
-                this.props.catchError(errors)
-                this.props.loadingStop()
-                console.log(errors)
-            })
+        this.props.auth_register(user, this.clearState)
     }
 
     render() {
@@ -147,5 +128,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { loadingStart, loadingStop, catchError, clearError }
+    { auth_register }
 )(Register)

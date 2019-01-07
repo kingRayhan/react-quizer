@@ -4,6 +4,7 @@ import thunk from 'redux-thunk'
 import quizes from './quizes'
 import meta from './meta'
 import errors from './errors'
+import auth from './auth'
 
 // export store object
 export default createStore(
@@ -11,6 +12,7 @@ export default createStore(
         quizes,
         meta,
         errors,
+        auth,
     }),
     compose(
         applyMiddleware(...[thunk]),

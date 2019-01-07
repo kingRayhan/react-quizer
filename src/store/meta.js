@@ -1,14 +1,17 @@
-/**
- * Action Types
- */
+import toastr from 'toastr'
+
 export const LOADING_START = 'LOADING_START'
 export const LOADING_STOP = 'LOADING_STOP'
+
 export const CATCH_MSG = 'CATCH_MSG'
 export const CLEAR_MSG = 'CLEAR_MSG'
+
+export const SUCCESS_STATE = 'SUCCESS_STATE'
 
 // Initial state
 const init = {
     loading: false,
+    success: false,
 }
 
 // Meta Reducer
@@ -35,6 +38,14 @@ const reducer = (state = init, { type, payload }) => {
             delete state.msg
             return { ...state }
         }
+
+        case SUCCESS_STATE: {
+            return {
+                ...state,
+                success: payload,
+            }
+        }
+
         default:
             return state
     }
@@ -45,3 +56,5 @@ export const loadingStart = () => ({ type: LOADING_START })
 export const loadingStop = () => ({ type: LOADING_STOP })
 export const catchMsg = payload => ({ type: CATCH_MSG, payload })
 export const clearhMsg = () => ({ type: CLEAR_MSG })
+
+export const flashMsg = (msg, type = 'success') => msg && toastr[type](msg)
